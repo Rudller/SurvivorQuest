@@ -1,45 +1,51 @@
-# 🧭 SurvivorQuest
+# SurvivorQuest Monorepo
 
-**SurvivorQuest** to aplikacja mobilno-webowa do organizowania gier terenowych i eventów integracyjnych (team building) z elementami survivalu. Stworzona z myślą o firmach, organizatorach wydarzeń i edukatorach szukających nowoczesnych narzędzi do angażowania zespołów w terenie.
+**SurvivorQuest** to platforma dla firm i organizatorów, umożliwiająca prowadzenie nowoczesnych gier terenowych, eventów integracyjnych i team buildingu z wykorzystaniem aplikacji mobilnej, panelu admina i backendu.
 
----
+## Struktura
 
-## 📱 Funkcje aplikacji mobilnej (React Native)
-- 🔓 Logowanie / tworzenie zespołów
-- 🗺️ Mapa z punktami GPS i aktywacją zadań
-- 🔥 Zadania terenowe: schronienie, ognisko, orientacja
-- 🎯 Punktacja, ranking zespołów, czas gry
-- 📡 Działanie online i offline (z mapami Mapbox)
-- 🆘 Tryb awaryjny / SOS
+- `apps/mobile` – aplikacja mobilna (React Native + Expo) dla uczestników: mapa, zadania, punkty, tryb offline/SOS
+- `apps/admin` – panel administratora (React + Vite + Tailwind) do zarządzania grą, scenariuszami, rankingami
+- `apps/backend` – backend API (Node.js + Express + MongoDB) do obsługi użytkowników, gier, scoringu, autoryzacji
+- `packages/shared` – współdzielone moduły (TypeScript)
 
----
+## Szybki start
 
-## 💻 Panel administratora (React)
-- 🧩 Tworzenie scenariuszy i zadań
-- 📊 Podgląd aktywności i rankingów
-- 🧭 Podgląd mapy z aktywnością graczy
-- 📥 Eksport wyników i raportów
-- 🔐 Panel logowania z autoryzacją JWT
+1. Instalacja zależności:
+   ```sh
+   pnpm install
+   ```
+2. Uruchomienie aplikacji mobilnej:
+   ```sh
+   npm run mobile
+   ```
+3. Uruchomienie panelu admina:
+   ```sh
+   npm run admin
+   ```
+4. Uruchomienie backendu:
+   ```sh
+   npm run backend
+   ```
 
----
+## Skrypty
+- `npm run mobile` – startuje Expo (React Native)
+- `npm run admin` – startuje panel admina (Vite + React + Tailwind)
+- `npm run backend` – startuje backend (Express)
 
-## 🌐 Backend API (Node.js + Express)
-- 🧾 REST API dla użytkowników, gier i zadań
-- 🗂️ Baza danych MongoDB (lub Firebase jako alternatywa)
-- 🔐 JWT auth / Firebase Auth
-- 📍 Obsługa geolokalizacji i scoringu
-- 🛰️ (Opcjonalnie) Socket.io dla real-time eventów
-
----
-
-## ⚙️ Stack technologiczny
+## Stack technologiczny
 - **Frontend (mobile):** React Native + Expo
-- **Frontend (web):** React.js + Vite/Tailwind
+- **Frontend (web):** React.js + Vite + Tailwind CSS
 - **Backend:** Node.js + Express + MongoDB
-- **Mapy:** Mapbox GL (mobile i web)
+- **Mapy:** Mapbox GL
 - **Auth:** Firebase Auth / JWT
-- **DevOps:** GitHub Actions, Vercel/Render/Heroku
 
 ---
 
-## Więcej info przy okazji tworzenia
+Platforma pozwala na:
+- Tworzenie i zarządzanie grami terenowymi oraz zadaniami
+- Śledzenie postępów i rankingów zespołów w czasie rzeczywistym
+- Integrację z mapami, scoringiem, trybem offline i awaryjnym
+- Eksport wyników i raportów dla firm
+
+Wspólny kod i typy umieszczaj w `packages/shared`. Każda aplikacja korzysta z workspace pnpm.
