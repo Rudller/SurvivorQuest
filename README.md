@@ -29,11 +29,13 @@
    ```
 
 ## Skrypty
+
 - `npm run mobile` – startuje Expo (React Native)
 - `npm run admin` – startuje panel admina (Vite + React + Tailwind)
 - `npm run backend` – startuje backend (Express)
 
 ## Stack technologiczny
+
 - **Frontend (mobile):** React Native + Expo
 - **Frontend (web):** React.js + Vite + Tailwind CSS
 - **Backend:** Node.js + Express + MongoDB
@@ -43,6 +45,7 @@
 ---
 
 Platforma pozwala na:
+
 - Tworzenie i zarządzanie grami terenowymi oraz zadaniami
 - Śledzenie postępów i rankingów zespołów w czasie rzeczywistym
 - Integrację z mapami, scoringiem, trybem offline i awaryjnym

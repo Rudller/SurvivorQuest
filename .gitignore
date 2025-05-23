@@ -30,3 +30,5 @@ web-build/
 *.tgz
 *.bak
 *.tmp
+# Prettier config
+.prettierrc

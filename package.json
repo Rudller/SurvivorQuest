@@ -10,13 +10,15 @@
     "mobile": "pnpm --filter ./apps/mobile start",
     "admin": "pnpm --filter ./apps/admin dev",
     "backend": "pnpm --filter ./apps/backend start",
-    "dev": "concurrently \"npm run admin\" \"npm run backend\""
+    "dev": "concurrently \"npm run admin\" \"npm run backend\"",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.5.0",
     "vite": "^6.3.5"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3"
   }
 }

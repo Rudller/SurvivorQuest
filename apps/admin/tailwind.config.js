@@ -1,10 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}"
-  ],
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -23,7 +20,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Montserrat", "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif"],
+        sans: ['Montserrat', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
       },
     },
   },

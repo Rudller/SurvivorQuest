@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['admin', 'gameMaster'], default: 'gameMaster' },
   isActive: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('User', userSchema);

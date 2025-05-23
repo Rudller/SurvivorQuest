@@ -16,16 +16,13 @@ export default function LoginWindow({ onLogin }) {
   };
 
   return (
-    <form
-      className="w-full flex flex-col gap-4 relative px-2 sm:px-0"
-      onSubmit={handleLogin}
-    >
+    <form className="w-full flex flex-col gap-4 relative px-2 sm:px-0" onSubmit={handleLogin}>
       <input
         type="email"
         placeholder="E-mail"
         className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand dark:bg-background-dark dark:text-white text-base sm:text-lg shadow-sm"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         autoComplete="username"
         inputMode="email"
       />
@@ -34,7 +31,7 @@ export default function LoginWindow({ onLogin }) {
         placeholder="Hasło"
         className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand dark:bg-background-dark dark:text-white text-base sm:text-lg shadow-sm"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         autoComplete="current-password"
       />
       {error && <div className="text-red-500 text-sm text-center">{error}</div>}
