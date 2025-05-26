@@ -1,23 +1,47 @@
 import logo from '../../../../packages/shared/assets/Logo-SurvivorQuest.png';
 import LoginWindow from '../components/LoginWindow';
+import ThemeToggle from '../components/ThemeToggle';
 
 export default function LoginPage() {
-  const handleLogin = (email, password) => {
-    // TODO: Integracja z backendem
-    alert(`Zalogowano jako: ${email}`);
+  // Zwraca true jeśli logowanie się powiodło, false lub rzuca błąd jeśli nie
+  const handleLogin = async (email, password) => {
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || 'Błąd logowania');
+      }
+      const data = await res.json();
+      // Możesz tu zapisać token do localStorage/sessionStorage
+      localStorage.setItem('token', data.token);
+      return true;
+    } catch (err) {
+      throw err;
+    }
   };
 
   return (
     <div
-      className="bg-background dark:bg-background-dark min-h-screen w-screen flex items-center justify-center transition-colors duration-300"
-      style={{
-        backgroundImage: `url(${logo})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center 4rem',
-        backgroundSize: '220px',
-      }}
+      className="bg-background dark:bg-background-dark min-h-screen w-screen flex items-center justify-center transition-colors duration-300 relative"
     >
-      <div className="bg-primary dark:bg-primary-dark text-white dark:text-black p-8 rounded-2xl shadow-lg text-center w-full max-w-md flex flex-col items-center justify-center transition-colors duration-300">
+      <ThemeToggle />
+      {/* Logo jako tło z rozjaśnieniem w dark mode */}
+      <div
+        className="pointer-events-none select-none absolute top-4 left-1/2 -translate-x-1/2 z-0"
+        style={{ width: 220, height: 220 }}
+      >
+        <img
+          src={logo}
+          alt="SurvivorQuest logo"
+          className="w-full h-full object-contain drop-shadow-lg transition duration-300 brightness-100 dark:brightness-0 dark:invert"
+          draggable="false"
+        />
+      </div>
+      <div className="bg-primary dark:bg-primary-dark text-white dark:text-black p-8 rounded-2xl shadow-lg text-center w-full max-w-md flex flex-col items-center justify-center transition-colors duration-300 z-10">
         <LoginWindow onLogin={handleLogin} />
       </div>
     </div>

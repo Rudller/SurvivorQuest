@@ -6,17 +6,24 @@ module.exports = {
     extend: {
       colors: {
         background: {
-          DEFAULT: '#E1CBA3',
-          dark: '#23221A',
+          DEFAULT: '#FEFAE0', // tło light
+          dark: '#0D1B2A',   // tło dark
         },
         primary: {
-          DEFAULT: '#3D3B23',
-          dark: '#B5A36D',
+          DEFAULT: '#606C38', // główny akcent light
+          dark: '#1B263B',   // główny akcent dark
         },
-        secondary: '#38bdf8',
-        brand: {
-          DEFAULT: '#10b981',
-          dark: '#047857',
+        secondary: {
+          DEFAULT: '#283618', // drugi akcent light
+          dark: '#415A77',   // drugi akcent dark
+        },
+        accent: {
+          DEFAULT: '#DDA15E', // akcent/przycisk light
+          dark: '#778DA9',   // akcent/przycisk dark
+        },
+        highlight: {
+          DEFAULT: '#BC6C25', // dodatkowy akcent light
+          dark: '#E0E1DD',   // dodatkowy akcent dark
         },
       },
       fontFamily: {

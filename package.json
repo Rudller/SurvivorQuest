@@ -11,7 +11,8 @@
     "admin": "pnpm --filter ./apps/admin dev",
     "backend": "pnpm --filter ./apps/backend start",
     "dev": "concurrently \"npm run admin\" \"npm run backend\"",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "mongo": "\"C:\\Program Files\\MongoDB\\Server\\8.0\\bin\\mongod.exe\""
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.5.0",

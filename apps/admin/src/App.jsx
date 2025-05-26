@@ -1,8 +1,39 @@
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import Home from './pages/Home';
 import './index.css';
 
+// Dummy auth check (replace with real logic)
+const isAuthenticated = () => {
+  // Sprawdza, czy token JWT jest w localStorage
+  return Boolean(localStorage.getItem('token'));
+};
+
+function RequireAuth({ children }) {
+  const location = useLocation();
+  if (!isAuthenticated()) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  return children;
+}
+
 function App() {
-  return <LoginPage />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        {/* Przykład: chroniona strona główna */}
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
