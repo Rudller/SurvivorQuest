@@ -21,7 +21,7 @@ export default function ThemeToggle() {
   }, [dark]);
 
   return (
-    <label className="absolute top-6 right-6 flex items-center cursor-pointer z-20 select-none drop-shadow-xl">
+    <label className="absolute top-4 right-4 flex items-center cursor-pointer z-20 select-none drop-shadow-xl">
       <input
         type="checkbox"
         checked={dark}
