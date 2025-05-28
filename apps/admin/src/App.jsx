@@ -1,6 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import Home from './pages/Home';
+import Realization from './pages/Realization';
+import AddRealization from './pages/AddRealization';
+import ManageGames from './pages/ManageGames';
+import AddGame from './pages/AddGame';
 import './index.css';
 
 // Dummy auth check (replace with real logic)
@@ -31,6 +35,26 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route path="/realization" element={
+          <RequireAuth>
+            <Realization />
+          </RequireAuth>
+        } />
+        <Route path="/addrealization" element={
+          <RequireAuth>
+            <AddRealization />
+          </RequireAuth>
+        } />
+        <Route path="/managegames" element={
+          <RequireAuth>
+            <ManageGames />
+          </RequireAuth>
+        } />
+        <Route path="/addgame" element={
+          <RequireAuth>
+            <AddGame />
+          </RequireAuth>
+        } />
       </Routes>
     </BrowserRouter>
   );

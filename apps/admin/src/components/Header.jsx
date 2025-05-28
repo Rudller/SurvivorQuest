@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
-import ThemeToggle from '../components/ThemeToggle';
+import React, { useEffect, useState } from 'react';
 import SidePanel from '../components/SidePanel';
 import logo from '../assets/Logo-SurvivorQuest.png';
 
 export default function Header() {
   const [sideOpen, setSideOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Try to get user from custom token first
+    let userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        setUser(JSON.parse(userData));
+        return;
+      } catch (e) {
+        // fallback to next
+      }
+    }
+    // Try to get user from Supabase token
+    const sbToken = localStorage.getItem('sb-xlqgujaxepagnjnbhmqw-auth-token');
+    if (sbToken) {
+      try {
+        const sbObj = JSON.parse(sbToken);
+        if (sbObj.user && sbObj.user.email) {
+          setUser({ email: sbObj.user.email, id: sbObj.user.id, role: sbObj.user.role });
+          return;
+        }
+      } catch (e) {
+        // fallback to nothing
+      }
+    }
+    setUser(null);
+  }, []);
 
   return (
     <>
@@ -44,9 +71,14 @@ export default function Header() {
             draggable="false"
           />
         </div>
-        {/* Theme toggle po prawej */}
-        <div className="flex items-center justify-end w-10 h-10">
-          <ThemeToggle />
+        {/* User info po prawej */}
+        <div className="flex items-center justify-end w-10 h-10 min-w-0 max-w-xs">
+          {/* <ThemeToggle /> */}
+          {user && (
+            <span className="ml-2 text-[8px] text-white dark:text-black font-semibold bg-accent dark:bg-accent-dark px-1.5 py-0.5 rounded shadow whitespace-nowrap">
+              {user.email || user.name || 'Użytkownik'}
+            </span>
+          )}
         </div>
       </header>
       <SidePanel open={sideOpen} onClose={() => setSideOpen(false)} />

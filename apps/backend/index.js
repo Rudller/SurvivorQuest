@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRouter = require('./routes/auth');
+const realizacjeRouter = require('./routes/realizacje');
+const gryRouter = require('./routes/gry');
 
 const app = express();
 app.use(cors());
@@ -24,6 +26,8 @@ mongoose
   });
 
 app.use('/api', authRouter);
+app.use('/api', realizacjeRouter);
+app.use('/api', gryRouter);
 
 // TODO: Add routes for users, games, tasks, etc.
 

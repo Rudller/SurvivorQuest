@@ -41,8 +41,12 @@ export default function LoginPage() {
           draggable="false"
         />
       </div>
-      <div className="bg-primary dark:bg-primary-dark text-white dark:text-black p-8 rounded-2xl shadow-lg text-center w-full max-w-md flex flex-col items-center justify-center transition-colors duration-300 z-10">
+      <div className="bg-primary dark:bg-primary-dark text-white dark:text-black p-8 rounded-2xl shadow-lg text-center w-full max-w-md flex flex-col items-center justify-center transition-colors duration-300 z-10 gap-4">
+        <h1 className="text-3xl font-extrabold mb-2 tracking-wide text-accent dark:text-accent-dark drop-shadow select-none">Panel Admin</h1>
         <LoginWindow onLogin={handleLogin} />
+        <p className="text-sm text-gray-400 dark:text-gray-500">
+          © {new Date().getFullYear()} SurvivorQuest
+        </p>
       </div>
     </div>
   );

@@ -28,8 +28,6 @@ const RealizacjaSchema = new Schema(
     },
     iloscDruzyn: {
       type: Number,
-      min: 1,
-      required: true,
     },
     gry: [
       {

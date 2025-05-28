@@ -85,18 +85,18 @@ export default function LoginWindow({ onLogin }) {
         {error && <div className="text-red-500 text-sm text-center">{error}</div>}
         <button
           type="submit"
-          className="px-4 py-3 rounded-lg bg-accent dark:bg-accent-dark text-white font-semibold hover:bg-highlight dark:hover:bg-highlight-dark transition-colors duration-200 text-base sm:text-lg shadow-md active:scale-95 border-2 border-transparent hover:border-accent focus:border-highlight"
+          className="px-4 py-3 rounded-lg bg-accent dark:bg-accent-dark text-white font-semibold hover:bg-highlight dark:hover:bg-highlight-dark transition-colors duration-200 text-base sm:text-lg shadow-md active:scale-95 border-2 border-transparent hover:border-accent focus:border-highlight w-full min-w-0"
         >
           Zaloguj się
         </button>
+        <button
+          type="button"
+          className="mt-4 px-4 py-3 rounded-lg bg-accent dark:bg-accent-dark text-white font-semibold hover:bg-highlight dark:hover:bg-highlight-dark transition-colors duration-200 text-base sm:text-lg shadow-md active:scale-95 border-2 border-transparent hover:border-accent focus:border-highlight w-full min-w-0"
+          onClick={() => alert('Rejestracja nowego użytkownika (do zaimplementowania)')}
+        >
+          Zarejestruj nowe konto
+        </button>
       </form>
-      <button
-        type="button"
-        className="w-full mt-4 px-4 py-3 rounded-lg bg-accent dark:bg-accent-dark text-white font-semibold hover:bg-highlight dark:hover:bg-highlight-dark transition-colors duration-200 text-base sm:text-lg shadow active:scale-95 border-2 border-transparent hover:border-accent focus:border-highlight opacity-80 hover:opacity-100"
-        onClick={() => alert('Rejestracja nowego użytkownika (do zaimplementowania)')}
-      >
-        Zarejestruj nowe konto
-      </button>
     </>
   );
 }
