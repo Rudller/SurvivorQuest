@@ -32,6 +32,12 @@ export default function SidePanel({ open, onClose }) {
             Zarządzanie Grami
           </button>
           <button className="w-full text-lg text-left px-4 py-2 rounded-xl font-semibold bg-transparent hover:bg-accent text-black dark:text-white dark:bg-transparent dark:hover:bg-accent-dark transition-colors shadow-sm border border-accent dark:border-accent-dark cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-dark hover:border-primary dark:hover:border-accent-dark [&:hover]:text-black dark:[&:hover]:text-white">Instrukcje do stanowisk</button>
+          <button
+            className="w-full text-lg text-left px-4 py-2 rounded-xl font-semibold bg-transparent hover:bg-accent text-black dark:text-white dark:bg-transparent dark:hover:bg-accent-dark transition-colors shadow-sm border border-accent dark:border-accent-dark cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-dark hover:border-primary dark:hover:border-accent-dark [&:hover]:text-black dark:[&:hover]:text-white"
+            onClick={() => { navigate('/addgametemplate'); onClose && onClose(); }}
+          >
+            Dodaj szablon gry
+          </button>
         </nav>
         <div className="flex justify-center mt-8">
           <ThemeToggle />

@@ -12,6 +12,7 @@
     "mongoose": "^8.15.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   }
 }

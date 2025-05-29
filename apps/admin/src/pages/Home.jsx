@@ -8,13 +8,13 @@ export default function Home() {
         <h1 className="text-3xl font-bold mb-6 text-primary dark:text-accent-dark">Instrukcja obsługi panelu admina SurvivorQuest</h1>
         <ol className="list-decimal list-inside space-y-3 text-base">
           <li>
-            <span className="font-semibold">Menu boczne:</span> Kliknij ikonę burgera w lewym górnym rogu, aby otworzyć panel nawigacyjny. Znajdziesz tam sekcje: <b>Realizacje</b>, <b>Zarządzanie Grami</b> oraz <b>Instrukcje do stanowisk</b>.
+            <span className="font-semibold">Menu boczne:</span> Kliknij ikonę burgera w lewym górnym rogu, aby otworzyć panel nawigacyjny. Znajdziesz tam sekcje: <b>Realizacje</b>, <b>Zarządzanie Szablonami Gier</b> oraz <b>Instrukcje do stanowisk</b>.
           </li>
           <li>
-            <span className="font-semibold">Dodawanie nowej realizacji:</span> Przejdź do sekcji <b>Realizacje</b> i kliknij przycisk „Dodaj nową realizację”. Wypełnij wymagane pola (nazwa firmy, data, lokalizacja, liczba drużyn, gry itd.) i zapisz.
+            <span className="font-semibold">Dodawanie nowej realizacji:</span> Przejdź do sekcji <b>Realizacje</b> i kliknij przycisk „Dodaj nową realizację”. Wypełnij wymagane pola (nazwa firmy, data, lokalizacja, liczba drużyn, szablony gier itd.) i zapisz.
           </li>
           <li>
-            <span className="font-semibold">Zarządzanie grami:</span> W sekcji <b>Zarządzanie Grami</b> możesz przeglądać, edytować i dodawać gry, które będą przypisywane do realizacji.
+            <span className="font-semibold">Zarządzanie szablonami gier:</span> W sekcji <b>Zarządzanie Szablonami Gier</b> możesz przeglądać, edytować i dodawać szablony gier, które będą przypisywane do realizacji.
           </li>
           <li>
             <span className="font-semibold">Instrukcje do stanowisk:</span> W tej sekcji znajdziesz instrukcje i materiały dla obsługi technicznej oraz prowadzących event.

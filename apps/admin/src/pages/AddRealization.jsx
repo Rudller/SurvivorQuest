@@ -10,16 +10,16 @@ export default function AddRealization() {
     startDate: '', // zmiana z 'data' na 'startDate'
     status: '',
     iloscDruzyn: '',
-    gry: [],
+    gameTemplates: [],
   });
-  const [gry, setGry] = useState([]);
+  const [availableGameTemplates, setAvailableGameTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [showGryDropdown, setShowGryDropdown] = useState(false);
+  const [showGameTemplateDropdown, setShowGameTemplateDropdown] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [pendingSubmit, setPendingSubmit] = useState(false);
-  const gryDropdownRef = useRef(null);
+  const gameTemplateDropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,25 +27,25 @@ export default function AddRealization() {
   };
 
   React.useEffect(() => {
-    fetch('/api/gry')
+    fetch('/api/game-templates')
       .then(res => res.json())
-      .then(data => setGry(data))
-      .catch(() => setGry([]));
+      .then(data => setAvailableGameTemplates(data))
+      .catch(() => setAvailableGameTemplates([]));
   }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (gryDropdownRef.current && !gryDropdownRef.current.contains(event.target)) {
-        setShowGryDropdown(false);
+      if (gameTemplateDropdownRef.current && !gameTemplateDropdownRef.current.contains(event.target)) {
+        setShowGameTemplateDropdown(false);
       }
     }
-    if (showGryDropdown) {
+    if (showGameTemplateDropdown) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showGryDropdown]);
+  }, [showGameTemplateDropdown]);
 
   const validateForm = () => {
     return (
@@ -54,7 +54,7 @@ export default function AddRealization() {
       form.startDate &&
       form.status &&
       form.iloscDruzyn &&
-      Array.isArray(form.gry) && form.gry.length > 0
+      Array.isArray(form.gameTemplates) && form.gameTemplates.length > 0
     );
   };
 
@@ -169,30 +169,30 @@ export default function AddRealization() {
               <button
                 type="button"
                 className="w-full rounded border px-3 py-2 bg-background dark:bg-background-dark flex justify-between items-center cursor-pointer"
-                onClick={() => setShowGryDropdown(v => !v)}
+                onClick={() => setShowGameTemplateDropdown(v => !v)}
               >
-                {form.gry.length === 0
+                {form.gameTemplates.length === 0
                   ? 'Wybierz gry...'
-                  : gry.filter(gra => form.gry.includes(gra._id)).map(gra => gra.nazwa).join(', ')}
+                  : availableGameTemplates.filter(gra => form.gameTemplates.includes(gra._id)).map(gra => gra.nazwa).join(', ')}
                 <span className="ml-2">▼</span>
               </button>
-              {showGryDropdown && (
-                <div ref={gryDropdownRef} className="absolute z-50 left-0 right-0 mt-2 bg-white dark:bg-primary-dark border border-accent/30 dark:border-accent-dark/30 rounded shadow-lg max-h-60 overflow-y-auto">
-                  {gry.length === 0 ? (
+              {showGameTemplateDropdown && (
+                <div ref={gameTemplateDropdownRef} className="absolute z-50 left-0 right-0 mt-2 bg-white dark:bg-primary-dark border border-accent/30 dark:border-accent-dark/30 rounded shadow-lg max-h-60 overflow-y-auto">
+                  {availableGameTemplates.length === 0 ? (
                     <span className="block px-4 py-2 text-gray-400 text-sm">Brak dostępnych gier</span>
                   ) : (
-                    gry.map(gra => (
+                    availableGameTemplates.map(gra => (
                       <label key={gra._id} className="flex items-center gap-2 px-4 py-2 hover:bg-accent/10 dark:hover:bg-accent-dark/10 cursor-pointer">
                         <input
                           type="checkbox"
-                          name="gry"
+                          name="gameTemplates"
                           value={gra._id}
-                          checked={form.gry.includes(gra._id)}
+                          checked={form.gameTemplates.includes(gra._id)}
                           onChange={e => {
                             if (e.target.checked) {
-                              setForm(f => ({ ...f, gry: [...(Array.isArray(f.gry) ? f.gry : []), gra._id] }));
+                              setForm(f => ({ ...f, gameTemplates: [...(Array.isArray(f.gameTemplates) ? f.gameTemplates : []), gra._id] }));
                             } else {
-                              setForm(f => ({ ...f, gry: (Array.isArray(f.gry) ? f.gry : []).filter(id => id !== gra._id) }));
+                              setForm(f => ({ ...f, gameTemplates: (Array.isArray(f.gameTemplates) ? f.gameTemplates : []).filter(id => id !== gra._id) }));
                             }
                           }}
                           className="accent-accent dark:accent-accent-dark"

@@ -1,16 +1,25 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const GraSchema = new Schema(
+const GameTemplateSchema = new Schema(
   {
     nazwa: {
       type: String,
       required: true,
       trim: true,
     },
-    opis: {
+    instrukcja: {
       type: String,
       trim: true,
+      required: true,
+    },
+    obrazek: {
+      type: String,
+      trim: true,
+    },
+    punktacja: {
+      type: Number,
+      default: 100,
     },
     typ: {
       type: String,
@@ -25,14 +34,10 @@ const GraSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    dodatkoweUstawienia: {
-      type: Schema.Types.Mixed,
-      default: {},
-    },
   },
   {
     timestamps: true, // createdAt, updatedAt
   }
 );
 
-module.exports = mongoose.model('Gry', GraSchema);
+module.exports = mongoose.model('GameTemplate', GameTemplateSchema);

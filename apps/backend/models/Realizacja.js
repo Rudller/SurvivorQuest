@@ -29,12 +29,6 @@ const RealizacjaSchema = new Schema(
     iloscDruzyn: {
       type: Number,
     },
-    gry: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Gry',
-      },
-    ],
     utworzonaPrzez: {
       type: Schema.Types.ObjectId,
       ref: 'User',
