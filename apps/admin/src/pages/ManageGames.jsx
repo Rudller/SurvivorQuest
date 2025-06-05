@@ -21,10 +21,10 @@ export default function ManageGames() {
     <div className="fixed inset-0 min-h-screen w-screen bg-background dark:bg-background-dark overflow-x-hidden">
       <Header />
       <div className="flex flex-col items-center px-4 py-8 text-black dark:text-white text-lg max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-primary dark:text-accent-dark">Zarządzanie szablonami gier</h1>
+        <h1 className="text-3xl font-bold mb-6 text-primary dark:text-accent-dark">Zarządzanie grami</h1>
         <button
           className="mb-6 px-6 py-3 rounded-xl bg-accent dark:bg-accent-dark text-white font-bold text-base shadow-md hover:bg-highlight dark:hover:bg-highlight-dark transition-colors focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-dark disabled:opacity-60"
-          onClick={() => navigate('/addgame')}
+          onClick={() => navigate('/addgametemplate')}
         >
           Dodaj nowy szablon gry
         </button>
