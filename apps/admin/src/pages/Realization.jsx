@@ -13,6 +13,11 @@ export default function Realization() {
       .catch(() => setRealizacje([]));
   }, []);
 
+  const handleEditClick = realization => {
+    // Przejdź do strony edycji
+    navigate(`/editrealization/${realization._id}`);
+  };
+
   return (
     <div className="fixed inset-0 min-h-screen w-screen bg-background dark:bg-background-dark overflow-x-hidden">
       <Header />
@@ -38,13 +43,32 @@ export default function Realization() {
               </span>
             </div>
           ) : (
-            realizacje.map(r => (
-              <div key={r._id} className="w-full bg-white dark:bg-primary-dark rounded-xl shadow p-4 border border-accent/30 dark:border-accent-dark/30">
-                <div className="font-bold text-primary dark:text-accent-dark text-lg">{r.nazwaFirmy}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">{r.lokalizacja}</div>
-                <div className="text-xs text-gray-400 dark:text-gray-500">Status: {r.status}</div>
-              </div>
-            ))
+            realizacje
+              .slice()
+              .sort((a, b) => {
+                if (!a.startDate && !b.startDate) return 0;
+                if (!a.startDate) return 1;
+                if (!b.startDate) return -1;
+                return new Date(a.startDate) - new Date(b.startDate);
+              })
+              .map(r => (
+                <div key={r._id} className="w-full bg-white dark:bg-primary-dark rounded-xl shadow p-4 border border-accent/30 dark:border-accent-dark/30 relative">
+                  <div className="font-bold text-primary dark:text-accent-dark text-lg">{r.nazwaFirmy}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{r.lokalizacja}</div>
+                  <div className="text-xs text-gray-400 dark:text-gray-500">Status: {r.status}</div>
+                  {r.startDate && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      Data realizacji: {new Date(r.startDate).toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </div>
+                  )}
+                  <button
+                    className="absolute top-2 right-2 px-3 py-1 rounded bg-accent dark:bg-accent-dark text-white text-xs font-semibold hover:bg-highlight dark:hover:bg-highlight-dark"
+                    onClick={() => handleEditClick(r)}
+                  >
+                    Edytuj
+                  </button>
+                </div>
+              ))
           )}
         </div>
       </div>

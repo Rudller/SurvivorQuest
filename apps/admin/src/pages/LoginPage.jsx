@@ -18,6 +18,7 @@ export default function LoginPage() {
       const data = await res.json();
       // Możesz tu zapisać token do localStorage/sessionStorage
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
       return true;
     } catch (err) {
       throw err;

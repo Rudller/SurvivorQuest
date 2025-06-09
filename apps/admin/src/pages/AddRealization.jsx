@@ -71,32 +71,40 @@ export default function AddRealization() {
     e.preventDefault();
     setError('');
     setSuccess(false);
-    console.log('Form state on submit:', form);
     if (!validateForm()) {
-      console.log('Form validation failed:', form);
       setShowConfirm(true);
       setPendingSubmit(true);
       return;
     }
     setLoading(true);
-    const payload = { ...form, iloscDruzyn: Number(form.iloscDruzyn), utworzonaPrzez: getUserId() };
-    console.log('Payload to be sent:', payload);
     try {
+      // 1. Create the realization
+      const payload = { ...form, iloscDruzyn: Number(form.iloscDruzyn), utworzonaPrzez: getUserId() };
       const res = await fetch('/api/realizacje', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      console.log('Response status:', res.status);
       if (!res.ok) {
         const errData = await res.json().catch(() => ({}));
-        console.error('Error response:', errData);
         throw new Error('Błąd podczas zapisu.');
+      }
+      const realizacja = await res.json();
+      // 2. Assign games to the realization
+      for (const graId of form.gameTemplates) {
+        const assignRes = await fetch(`/api/realizacje/${realizacja._id}/game-templates`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ graId }),
+        });
+        if (!assignRes.ok) {
+          throw new Error('Błąd podczas przypisywania gry do realizacji.');
+        }
       }
       setSuccess(true);
       setTimeout(() => navigate('/realization'), 1200);
     } catch (err) {
-      setError('Nie udało się dodać realizacji.');
+      setError('Nie udało się dodać realizacji lub przypisać gier.');
       console.error('Catch error:', err);
     } finally {
       setLoading(false);
@@ -108,24 +116,34 @@ export default function AddRealization() {
     if (pendingSubmit) {
       setLoading(true);
       setPendingSubmit(false);
-      const payload = { ...form, iloscDruzyn: Number(form.iloscDruzyn), utworzonaPrzez: getUserId() };
-      console.log('Payload to be sent (confirm):', payload);
       try {
+        // 1. Create the realization
+        const payload = { ...form, iloscDruzyn: Number(form.iloscDruzyn), utworzonaPrzez: getUserId() };
         const res = await fetch('/api/realizacje', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-        console.log('Response status (confirm):', res.status);
         if (!res.ok) {
           const errData = await res.json().catch(() => ({}));
-          console.error('Error response (confirm):', errData);
           throw new Error('Błąd podczas zapisu.');
+        }
+        const realizacja = await res.json();
+        // 2. Assign games to the realization
+        for (const graId of form.gameTemplates) {
+          const assignRes = await fetch(`/api/realizacje/${realizacja._id}/game-templates`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ graId }),
+          });
+          if (!assignRes.ok) {
+            throw new Error('Błąd podczas przypisywania gry do realizacji.');
+          }
         }
         setSuccess(true);
         setTimeout(() => navigate('/realization'), 1200);
       } catch (err) {
-        setError('Nie udało się dodać realizacji.');
+        setError('Nie udało się dodać realizacji lub przypisać gier.');
         console.error('Catch error (confirm):', err);
       } finally {
         setLoading(false);

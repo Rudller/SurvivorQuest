@@ -7,6 +7,8 @@ import ManageGames from './pages/ManageGames';
 import AddGame from './pages/AddGame';
 import AddGameTemplate from './pages/AddGameTemplate';
 import EditGameTemplate from './pages/EditGameTemplate';
+import EditRealization from './pages/EditRealization';
+import EditRealizationGames from './pages/EditRealizationGames';
 import './index.css';
 
 // Dummy auth check (replace with real logic)
@@ -42,6 +44,11 @@ function App() {
             <Realization />
           </RequireAuth>
         } />
+        <Route path="/editrealization/:id" element={
+          <RequireAuth>
+            <EditRealization />
+          </RequireAuth>
+        } />
         <Route path="/addrealization" element={
           <RequireAuth>
             <AddRealization />
@@ -65,6 +72,11 @@ function App() {
         <Route path="/editgametemplate/:id" element={
           <RequireAuth>
             <EditGameTemplate />
+          </RequireAuth>
+        } />
+        <Route path="/editrealization/:id/games" element={
+          <RequireAuth>
+            <EditRealizationGames />
           </RequireAuth>
         } />
       </Routes>
