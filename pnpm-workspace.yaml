@@ -1,6 +1,0 @@
-packages:
-  - apps/admin
-  - apps/backend
-  - packages/*
-ignoredBuiltDependencies:
-  - esbuild
