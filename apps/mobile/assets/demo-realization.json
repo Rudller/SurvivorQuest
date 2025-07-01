@@ -1,0 +1,94 @@
+{
+  "id": "demo-123",
+  "realizationCode": "ORGNAME-DDMMYY",
+  "realizationQrCode": "https://example.com/qr/demo-123",
+  "name": "demo",
+  "date": "2025-06-11",
+  "status": "w trakcie",
+  "location": "Warszawa, ul. Przykładowa 1",
+  "realizationStartTime": "2025-06-11T09:00:00Z",
+  "realizationEndTime": "2025-06-11T17:00:00Z",
+  "teams": [
+    {
+      "id": "team1",
+      "name": "Zespół A",
+      "color": "#FF5733",
+      "score": 0,
+      "status": "active",
+      "startingStation": 1
+    },
+    {
+      "id": "team2",
+      "name": "Zespół B",
+      "color": "#33FF57",
+      "score": 0,
+      "status": "active",
+      "startingStation": 2
+    }
+  ],
+  "games": [
+    {
+      "id": 1,
+      "type": "quiz",
+      "name": "Stanowisko 1",
+      "startTime": "2025-06-11T10:00:00Z",
+      "endTime": "2025-06-11T10:45:00Z",
+      "score": 60,
+      "details": {
+        "questionNumber": 2,
+        "questionsDetails": [
+          { 
+            "questionId": "q1", 
+            "questionText": "Jakie jest stolicą Polski?",
+            "photoUrls": [
+              "https://example.com/photo1.jpg",
+              "https://example.com/photo2.jpg"
+            ],
+            "answers": [
+              { "id": 1, "text": "Kraków" },
+              { "id": 2, "text": "Warszawa" },
+              { "id": 3, "text": "Gdańsk" }
+            ],
+            "correctAnswerId": 2
+        },
+          {
+            "questionId": "q2",
+            "questionText": "Ile województw ma Polska?",
+            "photoUrls": [
+              "https://example.com/photo3.jpg"
+            ],
+            "answers": [
+              { "id": 1, "text": "12" },
+              { "id": 2, "text": "16" },
+              { "id": 3, "text": "18" }
+            ],
+            "correctAnswerId": 2
+          }
+        ]
+
+      }
+    },
+    {
+      "id": 2,
+      "type": "gameStation",
+      "name": "Stanowisko 2",
+      "startTime": "2025-06-11T11:00:00Z",
+      "endTime": null,
+      "score": null,
+      "details": {
+        "description": "Zadanie polega na wykonaniu określonych czynności w terenie.",
+        "photoUrls": [
+          "https://example.com/photo1.jpg",
+          "https://example.com/photo2.jpg"
+        ],
+        "verificationCode": "VERIF123"
+      }
+    }
+    
+  ],
+  "notes": "To jest przykładowa realizacja do testów frontendu i backendu.",
+  "attachments": [
+    { "id": "a1", "type": "photo", "url": "https://example.com/photo1.jpg" },
+    { "id": "a2", "type": "pdf", "url": "https://example.com/instrukcja.pdf" }
+  ]
+}
