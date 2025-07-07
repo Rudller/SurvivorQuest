@@ -14,7 +14,7 @@ export default function HomeScreen() {
     setLoading(true);
     setTimeout(() => {
       if (code.trim().toUpperCase() === 'DEMO') {
-        router.push('/demo');
+        router.push('/demo-choose-team');
       } else if (code.trim().length < 4) {
         setError('Podaj poprawny kod realizacji.');
       } else {

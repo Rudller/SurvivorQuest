@@ -1,12 +1,14 @@
+import React, { useState } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useState } from 'react';
+import { useTeam } from '../app/team-context';
 // @ts-ignore
 import Logo from '../assets/Logo-SurvivorQuest.png';
 import { BurgerMenu } from './BurgerMenu';
 
 export function Header() {
   const insets = useSafeAreaInsets?.() || { top: 0 };
+  const { teamId } = useTeam();
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <View
@@ -30,7 +32,7 @@ export function Header() {
       <View style={{ position: 'absolute', left: '50%', top: '50%', transform: [{ translateX: -24 }, { translateY: -24 }], zIndex: 10 }}>
         <Image
           source={Logo}
-          style={{ width: 48, height: 48 }}
+          style={{ width: 70, height: 70 }}
           resizeMode="contain"
           accessibilityLabel="SurvivorQuest logo"
         />
@@ -40,7 +42,7 @@ export function Header() {
       {/* Informacja o trybie demo po prawej stronie */}
       <View className="w-32 h-10 items-end justify-center">
         <Text className="px-3 py-1 rounded-xl bg-accent dark:bg-accent-dark text-white dark:text-black font-bold text-xs shadow text-right">
-          DEMO
+          {teamId ? `DEMO-${teamId}` : 'DEMO'}
         </Text>
       </View>
       <BurgerMenu visible={menuOpen} onClose={() => setMenuOpen(false)} />
