@@ -19,3 +19,6 @@ export function TeamProvider({ children }: { children: ReactNode }) {
 export function useTeam() {
   return useContext(TeamContext);
 }
+
+// Default export dla kompatybilności z Expo Router
+export default TeamProvider;

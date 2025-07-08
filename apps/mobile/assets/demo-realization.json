@@ -34,6 +34,10 @@
       "startTime": "2025-06-11T10:00:00Z",
       "endTime": "2025-06-11T10:45:00Z",
       "score": 60,
+      "coordinates": {
+        "latitude": 52.497961,
+        "longitude": 21.066870
+      },
       "details": {
         "questionNumber": 2,
         "questionsDetails": [
@@ -69,19 +73,207 @@
       }
     },
     {
-      "id": 2,
+      "id": 3,
       "type": "gameStation",
-      "name": "Stanowisko 2",
-      "startTime": "2025-06-11T11:00:00Z",
+      "name": "Rowery",
+      "startTime": "2025-06-11T11:30:00Z",
       "endTime": null,
       "score": null,
+      "coordinates": {
+        "latitude": 52.498211,
+        "longitude": 21.067250
+      },
       "details": {
-        "description": "Zadanie polega na wykonaniu określonych czynności w terenie.",
-        "photoUrls": [
-          "https://example.com/photo1.jpg",
-          "https://example.com/photo2.jpg"
-        ],
-        "verificationCode": "VERIF123"
+        "description": "Zadanie na rowerach - przejazd przez wyznaczoną trasę.",
+        "photoUrls": [],
+        "verificationCode": "ROWERY01"
+      }
+    },
+    {
+      "id": 4,
+      "type": "gameStation",
+      "name": "Beer Pong",
+      "startTime": "2025-06-11T12:00:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498163,
+        "longitude": 21.066992
+      },
+      "details": {
+        "description": "Gra w Beer Pong - trafienie piłeczką do kubków.",
+        "photoUrls": [],
+        "verificationCode": "BEER01"
+      }
+    },
+    {
+      "id": 5,
+      "type": "gameStation",
+      "name": "Mega Jenga",
+      "startTime": "2025-06-11T12:30:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498435,
+        "longitude": 21.067208
+      },
+      "details": {
+        "description": "Gra w wielką Jengę - usuwanie klocków bez przewrócenia wieży.",
+        "photoUrls": [],
+        "verificationCode": "JENGA01"
+      }
+    },
+    {
+      "id": 6,
+      "type": "gameStation",
+      "name": "Rzucanie do kosza",
+      "startTime": "2025-06-11T13:00:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498379,
+        "longitude": 21.068057
+      },
+      "details": {
+        "description": "Rzucanie piłką do kosza - zdobycie określonej liczby punktów.",
+        "photoUrls": [],
+        "verificationCode": "KOSZ01"
+      }
+    },
+    {
+      "id": 7,
+      "type": "gameStation",
+      "name": "Bumber Ball",
+      "startTime": "2025-06-11T13:30:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.497982,
+        "longitude": 21.068619
+      },
+      "details": {
+        "description": "Gra w Bumber Ball - mecz piłki nożnej w dmuchanych kulach.",
+        "photoUrls": [],
+        "verificationCode": "BUMBER01"
+      }
+    },
+    {
+      "id": 8,
+      "type": "gameStation",
+      "name": "Balans drużynowy",
+      "startTime": "2025-06-11T14:00:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.497635,
+        "longitude": 21.068295
+      },
+      "details": {
+        "description": "Zadanie na równowagę - drużyna musi utrzymać balans na specjalnej platformie.",
+        "photoUrls": [],
+        "verificationCode": "BALANS01"
+      }
+    },
+    {
+      "id": 9,
+      "type": "gameStation",
+      "name": "Sumo",
+      "startTime": "2025-06-11T14:30:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.497654,
+        "longitude": 21.068174
+      },
+      "details": {
+        "description": "Walka sumo w specjalnych kostiumach - wypchnięcie przeciwnika z koła.",
+        "photoUrls": [],
+        "verificationCode": "SUMO01"
+      }
+    },
+    {
+      "id": 10,
+      "type": "gameStation",
+      "name": "Bilard Holenderski",
+      "startTime": "2025-06-11T15:00:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498188,
+        "longitude": 21.065732
+      },
+      "details": {
+        "description": "Gra w bilard holenderski - wbijanie bil do łuz za pomocą kijów.",
+        "photoUrls": [],
+        "verificationCode": "BILARD01"
+      }
+    },
+    {
+      "id": 11,
+      "type": "gameStation",
+      "name": "Culbuto",
+      "startTime": "2025-06-11T15:30:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498349,
+        "longitude": 21.065584
+      },
+      "details": {
+        "description": "Gra Culbuto - przewracanie figur za pomocą piłek.",
+        "photoUrls": [],
+        "verificationCode": "CULBUTO01"
+      }
+    },
+    {
+      "id": 12,
+      "type": "gameStation",
+      "name": "Archer Tag",
+      "startTime": "2025-06-11T16:00:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498551,
+        "longitude": 21.065964
+      },
+      "details": {
+        "description": "Łucznictwo bojowe - eliminowanie przeciwników za pomocą łuków i strzał z piankowymi grotami.",
+        "photoUrls": [],
+        "verificationCode": "ARCHER01"
+      }
+    },
+    {
+      "id": 13,
+      "type": "gameStation",
+      "name": "Proce",
+      "startTime": "2025-06-11T16:30:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.498627,
+        "longitude": 21.066572
+      },
+      "details": {
+        "description": "Strzelanie z procy do celów - trafienie w wyznaczone punkty.",
+        "photoUrls": [],
+        "verificationCode": "PROCE01"
+      }
+    },
+    {
+      "id": 14,
+      "type": "gameStation",
+      "name": "Tyrolka",
+      "startTime": "2025-06-11T17:00:00Z",
+      "endTime": null,
+      "score": null,
+      "coordinates": {
+        "latitude": 52.497175,
+        "longitude": 21.068236
+      },
+      "details": {
+        "description": "Zjazd tyrolką - przejechanie na linie przez wyznaczony odcinek.",
+        "photoUrls": [],
+        "verificationCode": "TYROLKA01"
       }
     }
     

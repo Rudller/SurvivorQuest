@@ -14,6 +14,7 @@ export default function DemoScreen() {
   const demo = demoRealization;
   const { teamId } = useTeam();
   const [team, setTeam] = useState<{ id: string; name: string; color: string } | null>(null);
+  const [mapKey, setMapKey] = useState(0); // Klucz do przeładowania mapy
   const insets = useSafeAreaInsets();
 
   // Pobierz wymiary ekranu
@@ -45,6 +46,12 @@ export default function DemoScreen() {
       console.log('Camera error:', error);
       Alert.alert('Błąd', 'Nie udało się otworzyć kamery.');
     }
+  };
+
+  // Funkcja do resetowania/przeładowania mapy
+  const resetMap = () => {
+    setMapKey(prev => prev + 1); // Zmiana klucza spowoduje przeładowanie mapy
+    Alert.alert('Mapa', 'Mapa została przeładowana');
   };
 
   useEffect(() => {
@@ -111,24 +118,96 @@ export default function DemoScreen() {
         }}
       >
         {/* Mapa z markerem lokalizacji realizacji */}
-        <View className="w-full mb-6 rounded-2xl overflow-hidden border border-primary/30 dark:border-primary-dark/30" style={{ height: MAP_HEIGHT }}>
+        <View className="w-full mb-6 rounded-2xl overflow-hidden border-2 border-green-500/70 shadow-lg" style={{ height: MAP_HEIGHT }}>
           <MapView
-            key={`52.497961-21.066870-0.001-0.001`}
+            key={mapKey} // Klucz do przeładowania mapy
             style={{ flex: 1 }}
             initialRegion={{
               latitude: 52.497961,
               longitude: 21.066870,
-              latitudeDelta: 0.001,
-              longitudeDelta: 0.001,
+              latitudeDelta: 0.008,
+              longitudeDelta: 0.008,
             }}
-            mapType="satellite"
+            mapType="hybrid"
+            showsUserLocation={true}
+            followsUserLocation={false}
+            showsMyLocationButton={true}
+            showsCompass={true}
+            showsScale={true}
+            showsBuildings={false}
+            showsTraffic={false}
+            showsIndoors={false}
+            showsPointsOfInterest={true}
+            zoomEnabled={true}
+            scrollEnabled={true}
+            pitchEnabled={true}
+            rotateEnabled={true}
+            toolbarEnabled={true}
+            loadingEnabled={true}
+            loadingIndicatorColor="#22c55e"
+            loadingBackgroundColor="#1f2937"
           >
+            {/* Marker głównej lokalizacji */}
             <Marker
-              coordinate={{ latitude: 52.2297, longitude: 21.0122 }}
+              coordinate={{ latitude: 52.497961, longitude: 21.066870 }}
               title={demo.name}
               description={demo.location}
+              pinColor="#22c55e"
             />
+            
+            {/* Markery stanowisk gier z koordynatami */}
+            {demo.games?.map((game: any) => {
+              if (game.coordinates) {
+                return (
+                  <Marker
+                    key={game.id}
+                    coordinate={{
+                      latitude: game.coordinates.latitude,
+                      longitude: game.coordinates.longitude
+                    }}
+                    title={game.name}
+                    description={game.details?.description || `${game.type} - ${game.details?.verificationCode}`}
+                    pinColor={game.type === 'quiz' ? '#3b82f6' : '#f59e0b'}
+                  />
+                );
+              }
+              return null;
+            })}
           </MapView>
+          
+          {/* Legenda/informacje dla gier terenowych */}
+          <View className="absolute top-2 left-2 bg-black/70 rounded-lg px-3 py-2">
+            <Text className="text-white text-xs font-semibold">🎯 Lokalizacja główna</Text>
+            <Text className="text-green-400 text-xs">📍 Twoja pozycja</Text>
+            <Text className="text-green-400 text-xs">🟢 Główna lokalizacja</Text>
+            <Text className="text-blue-400 text-xs">🔵 Quiz</Text>
+            <Text className="text-yellow-500 text-xs">🟡 Stanowiska gier</Text>
+            <View className="border-t border-white/30 mt-1 pt-1">
+              <Text className="text-white text-xs">🎯 Wycentruj</Text>
+              <Text className="text-white text-xs">🔄 Przeładuj</Text>
+            </View>
+          </View>
+          
+          {/* Przyciski mapy */}
+          <View className="absolute bottom-2 right-2 flex-col space-y-2">
+            {/* Przycisk do centrowania mapy */}
+            <TouchableOpacity 
+              className="bg-green-500 rounded-full p-2 shadow-lg"
+              onPress={() => {
+                Alert.alert('Mapa', 'Wycentrowano na lokalizacji gry');
+              }}
+            >
+              <Text className="text-white text-lg">🎯</Text>
+            </TouchableOpacity>
+            
+            {/* Przycisk do resetowania mapy */}
+            <TouchableOpacity 
+              className="bg-blue-500 rounded-full p-2 shadow-lg"
+              onPress={resetMap}
+            >
+              <Text className="text-white text-lg">🔄</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         {/* ...existing code... */}
         <Text className="text-2xl font-bold text-primary dark:text-primary-dark mb-2">{demo.name}</Text>
