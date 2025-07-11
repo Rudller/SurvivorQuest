@@ -39,6 +39,8 @@
         "longitude": 21.066870
       },
       "details": {
+        "description": "Quiz wiedzy ogólnej sprawdzający znajomość faktów z różnych dziedzin. Pytania wielokrotnego wyboru z jedną prawidłową odpowiedzią.",
+        "objective": "Drużyna musi odpowiedzieć poprawnie na wszystkie pytania quizu. Macie 3 próby na każde pytanie. Po udzieleniu wszystkich poprawnych odpowiedzi otrzymacie kod weryfikacyjny.",
         "questionNumber": 2,
         "questionsDetails": [
           { 
@@ -84,8 +86,9 @@
         "longitude": 21.067250
       },
       "details": {
-        "description": "Zadanie na rowerach - przejazd przez wyznaczoną trasę.",
-        "photoUrls": [],
+        "description": "Zadanie na rowerach przez malownicze ścieżki parkowe z kilkoma punktami kontrolnymi. Pamiętajcie o bezpieczeństwie i noszeniu kasków!",
+        "objective": "Wszyscy członkowie drużyny muszą ukończyć wyznaczoną trasę razem. Po skończonym przejeździe instruktor da wam kod weryfikacyjny po którym uzyskacie punkty.",
+        "photoUrls": ["demo-bikers"],
         "verificationCode": "ROWERY01"
       }
     },
@@ -101,7 +104,8 @@
         "longitude": 21.066992
       },
       "details": {
-        "description": "Gra w Beer Pong - trafienie piłeczką do kubków.",
+        "description": "Popularna gra zręcznościowa polegająca na trafianiu piłeczkami ping-pongowymi do kubków ustawionych w formację trójkąta.",
+        "objective": "Drużyna musi trafić piłeczką do wszystkich kubków przeciwnika. Każdy członek drużyny wykonuje po 3 rzuty. Po zaliczeniu zadania instruktor poda kod weryfikacyjny.",
         "photoUrls": [],
         "verificationCode": "BEER01"
       }
@@ -118,7 +122,8 @@
         "longitude": 21.067208
       },
       "details": {
-        "description": "Gra w wielką Jengę - usuwanie klocków bez przewrócenia wieży.",
+        "description": "Gra w wielką Jengę wykonaną z drewnianych klocków o wymiarach znacznie większych niż tradycyjna wersja. Wymaga precyzji i spokoju.",
+        "objective": "Drużyna musi usunąć 5 klocków z wieży bez jej przewrócenia. Jeden członek drużyny na raz, pozostali mogą doradzać. Po pomyślnym ukończeniu instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "JENGA01"
       }
@@ -135,7 +140,8 @@
         "longitude": 21.068057
       },
       "details": {
-        "description": "Rzucanie piłką do kosza - zdobycie określonej liczby punktów.",
+        "description": "Klasyczna gra sportowa na koszykówce z piłką. Stanowisko wyposażone w profesjonalny kosz na regulowanej wysokości.",
+        "objective": "Drużyna musi zdobyć minimum 15 punktów. Każdy członek wykonuje po 5 rzutów, za trafienie z linii rzutów wolnych - 1 punkt, za trafienie z dystansu - 2 punkty. Po osiągnięciu wyniku instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "KOSZ01"
       }
@@ -152,7 +158,8 @@
         "longitude": 21.068619
       },
       "details": {
-        "description": "Gra w Bumber Ball - mecz piłki nożnej w dmuchanych kulach.",
+        "description": "Niesamowita gra w piłkę nożną w gigantycznych, dmuchanych kulach Zorb. Gracze wchodzą do kul i próbują grać w piłkę, często przewracając się w zabawny sposób.",
+        "objective": "Rozegrać mecz 3 vs 3 przez 10 minut. Drużyna, która strzeli więcej goli lub ta która lepiej się bawi (ocena instruktora) otrzymuje kod weryfikacyjny.",
         "photoUrls": [],
         "verificationCode": "BUMBER01"
       }
@@ -169,7 +176,8 @@
         "longitude": 21.068295
       },
       "details": {
-        "description": "Zadanie na równowagę - drużyna musi utrzymać balans na specjalnej platformie.",
+        "description": "Wyzwanie na równowagę i współpracę zespołową. Specjalna platforma balansowa, która wymaga skoordynowanych ruchów całej drużyny.",
+        "objective": "Cała drużyna musi stanąć na platformie i utrzymać równowagę przez 60 sekund bez dotknięcia ziemi. Wszyscy muszą uczestniczyć jednocześnie. Po udanym wyzwaniu instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "BALANS01"
       }
@@ -186,7 +194,8 @@
         "longitude": 21.068174
       },
       "details": {
-        "description": "Walka sumo w specjalnych kostiumach - wypchnięcie przeciwnika z koła.",
+        "description": "Zabawna walka sumo w specjalnych, wyściełanych kostiumach. Bezpieczne i komiczne starcie w wyznaczonym kole na macie.",
+        "objective": "Przeprowadzić turniej w drużynie - każdy z każdym. Cel to wypchnięcie przeciwnika poza koło lub przewrócenie go. Zwycięzca turnieju dostaje kod dla całej drużyny.",
         "photoUrls": [],
         "verificationCode": "SUMO01"
       }
@@ -203,7 +212,8 @@
         "longitude": 21.065732
       },
       "details": {
-        "description": "Gra w bilard holenderski - wbijanie bil do łuz za pomocą kijów.",
+        "description": "Gigantyczny bilard człowiek-piłka! Gracze są jednocześnie kijem i piłką na wielkim stole bilardowym. Gra w holenderską odmianę bilardu.",
+        "objective": "Drużyna musi wbić 3 kolorowe bile do łuz w określonej kolejności. Jeden gracz to 'kij', reszta to 'bile'. Współpraca i precyzja są kluczowe. Po zaliczeniu instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "BILARD01"
       }
@@ -220,7 +230,8 @@
         "longitude": 21.065584
       },
       "details": {
-        "description": "Gra Culbuto - przewracanie figur za pomocą piłek.",
+        "description": "Francuski sport tradycyjny polegający na przewracaniu drewnianych figur za pomocą piłek. Wymaga celności i strategii w doborze kolejności celów.",
+        "objective": "Drużyna musi przewrócić wszystkie 12 figur Culbuto używając maksymalnie 8 piłek. Każdy członek drużyny rzuca po kolei. Strategia jest ważna - niektóre figury są trudniejsze! Po zaliczeniu instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "CULBUTO01"
       }
@@ -237,7 +248,8 @@
         "longitude": 21.065964
       },
       "details": {
-        "description": "Łucznictwo bojowe - eliminowanie przeciwników za pomocą łuków i strzał z piankowymi grotami.",
+        "description": "Bezpieczne łucznictwo bojowe z łukami i strzałami zakończonymi piankowymi grotami. Gra w eliminację przeciwników na wyznaczonym terenie.",
+        "objective": "Rozegrać grę eliminacyjną 'każdy przeciwko każdemu'. Trafiony gracz jest wyeliminowany i musi usiąść. Ostatni stojący wygrywa dla drużyny. Bezpieczeństwo przede wszystkim - zawsze noście ochronę oczu! Po grze instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "ARCHER01"
       }
@@ -254,7 +266,8 @@
         "longitude": 21.066572
       },
       "details": {
-        "description": "Strzelanie z procy do celów - trafienie w wyznaczone punkty.",
+        "description": "Starożytna broń miotająca w nowoczesnym wydaniu. Strzelanie z procy do celów na różnych dystansach z kulkami gumowymi.",
+        "objective": "Każdy członek drużyny musi trafić do 3 różnych celów z różnych odległości (bliski, średni, daleki dystans). Łącznie drużyna musi zdobyć minimum 12 trafień z 15 prób. Po osiągnięciu wyniku instruktor poda kod.",
         "photoUrls": [],
         "verificationCode": "PROCE01"
       }
@@ -271,7 +284,8 @@
         "longitude": 21.068236
       },
       "details": {
-        "description": "Zjazd tyrolką - przejechanie na linie przez wyznaczony odcinek.",
+        "description": "Adrenalina i emocje na tyrolce! Bezpieczny zjazd na stalowej linie rozpiętej nad terenem z profesjonalnym sprzętem alpinistycznym.",
+        "objective": "Wszyscy członkowie drużyny muszą przejechać tyrolkę od początku do końca. Instruktor pomoże z założeniem uprzęży i zabezpieczeniem. Po tym jak wszyscy przejadą, instruktor poda kod weryfikacyjny.",
         "photoUrls": [],
         "verificationCode": "TYROLKA01"
       }

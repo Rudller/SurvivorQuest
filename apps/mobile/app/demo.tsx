@@ -4,6 +4,7 @@ import { View, Text, ScrollView, Platform, TouchableOpacity, Alert, Dimensions }
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Camera } from 'expo-camera';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { useTeam } from './team-context';
@@ -217,12 +218,21 @@ export default function DemoScreen() {
         {/* <Text className="mb-4 text-base text-secondary dark:text-secondary-dark">Organizator: {demo.organizer?.name} ({demo.organizer?.email})</Text> */}
         <Text className="text-lg font-semibold text-accent dark:text-accent-dark mb-2">Gry / Stanowiska:</Text>
         {demo.games?.map((game: any) => (
-          <View key={game.id} className="mb-4 p-3 rounded-xl bg-white/80 dark:bg-black/40 border border-primary/20 dark:border-primary-dark/20">
-            <Text className="font-bold text-primary dark:text-primary-dark mb-1">{game.name}</Text>
+          <TouchableOpacity 
+            key={game.id} 
+            onPress={() => router.push(`/game?gameId=${game.id}`)}
+            className="mb-4 p-3 rounded-xl bg-white/80 dark:bg-black/40 border border-primary/20 dark:border-primary-dark/20 active:bg-white/60 dark:active:bg-black/60"
+          >
+            <View className="flex-row justify-between items-start mb-1">
+              <Text className="font-bold text-primary dark:text-primary-dark flex-1">{game.name}</Text>
+              <Text className="text-xs text-accent dark:text-accent-dark ml-2">👆 Dotknij aby otworzyć</Text>
+            </View>
             <Text className="text-sm text-secondary dark:text-secondary-dark mb-1">Typ: {game.type || game.details?.type}</Text>
             <Text className="text-sm text-secondary dark:text-secondary-dark mb-1">Status: {game.status || '-'}</Text>
             {game.details?.description && (
-              <Text className="text-sm text-secondary dark:text-secondary-dark mb-1">Opis: {game.details.description}</Text>
+              <Text className="text-sm text-secondary dark:text-secondary-dark mb-1" numberOfLines={2}>
+                Opis: {game.details.description}
+              </Text>
             )}
             {game.details?.verificationCode && (
               <Text className="text-sm text-highlight dark:text-highlight-dark mb-1">Kod zaliczenia: {game.details.verificationCode}</Text>
@@ -232,12 +242,14 @@ export default function DemoScreen() {
                 <Text className="font-semibold text-accent dark:text-accent-dark">Pytania quizowe:</Text>
                 {game.details.questionsDetails.map((q: any) => (
                   <View key={q.questionId} className="mb-1">
-                    <Text className="text-sm text-primary dark:text-primary-dark">{q.questionText}</Text>
+                    <Text className="text-sm text-primary dark:text-primary-dark" numberOfLines={1}>
+                      • {q.questionText}
+                    </Text>
                   </View>
                 ))}
               </View>
             )}
-          </View>
+          </TouchableOpacity>
         ))}
         {/* <Text className="mt-6 text-base text-secondary dark:text-secondary-dark">Uczestnicy:</Text>
         {demo.participants?.map((p: any) => (
