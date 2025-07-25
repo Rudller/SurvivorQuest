@@ -8,15 +8,39 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "orientation": "portrait",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Ta aplikacja potrzebuje dostępu do lokalizacji, aby wyświetlić Twoją pozycję na mapie podczas gry.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Ta aplikacja potrzebuje dostępu do lokalizacji, aby wyświetlić Twoją pozycję na mapie podczas gry.",
+        "NSCameraUsageDescription": "Ta aplikacja potrzebuje dostępu do kamery, aby robić zdjęcia podczas gry.",
+        "UISupportedInterfaceOrientations": [
+          "UIInterfaceOrientationPortrait"
+        ]
+      }
     },
     "android": {
+      "orientation": "portrait",
+      "screenOrientation": "portrait",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -25,6 +49,20 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Ta aplikacja potrzebuje dostępu do lokalizacji, aby wyświetlić Twoją pozycję na mapie podczas gry.",
+          "locationAlwaysPermission": "Ta aplikacja potrzebuje dostępu do lokalizacji, aby wyświetlić Twoją pozycję na mapie podczas gry.",
+          "locationWhenInUsePermission": "Ta aplikacja potrzebuje dostępu do lokalizacji, aby wyświetlić Twoją pozycję na mapie podczas gry."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Ta aplikacja potrzebuje dostępu do kamery, aby robić zdjęcia podczas gry."
+        }
+      ],
       [
         "expo-splash-screen",
         {

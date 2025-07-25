@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router/build/hooks';
+import { useRouter } from 'expo-router';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Header } from '../components/Header';
 import demoRealization from '../assets/demo-realization.json';

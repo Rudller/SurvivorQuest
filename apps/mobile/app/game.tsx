@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Platform, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, router } from 'expo-router';
-import { Header } from '../components/Header';
+import { Header, getHeaderHeights } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { useTeam } from './team-context';
 import demoRealization from '../assets/demo-realization.json';
@@ -31,7 +30,6 @@ const getImageSource = (photoUrl: string) => {
 export default function GameScreen() {
   const { gameId } = useLocalSearchParams();
   const { teamId } = useTeam();
-  const [team, setTeam] = useState<{ id: string; name: string; color: string } | null>(null);
   const [verificationCode, setVerificationCode] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const insets = useSafeAreaInsets();
@@ -40,9 +38,8 @@ export default function GameScreen() {
   const game = demoRealization.games?.find((g: any) => g.id.toString() === gameId);
 
   // Wysokość headera i footera
-  const HEADER_HEIGHT = 64;
+  const headerHeights = getHeaderHeights(insets, !!teamId, true);
   const FOOTER_HEIGHT = 80 + insets.bottom;
-  const TEAMBAR_HEIGHT = team ? 48 : 0;
 
   // Obsługa zatwierdzenia kodu
   const handleSubmitCode = async () => {
@@ -80,36 +77,10 @@ export default function GameScreen() {
     }
   };
 
-  useEffect(() => {
-    const fetchTeam = async () => {
-      if (!teamId) {
-        setTeam(null);
-        return;
-      }
-      
-      try {
-        if (Platform.OS === 'web' && typeof window !== 'undefined' && window?.localStorage?.getItem) {
-          const saved = window.localStorage.getItem('demo-team');
-          if (saved) {
-            setTeam(JSON.parse(saved));
-          }
-        } else {
-          const saved = await AsyncStorage.getItem('demo-team');
-          if (saved) {
-            setTeam(JSON.parse(saved));
-          }
-        }
-      } catch (error) {
-        console.log('Error loading team:', error);
-      }
-    };
-    fetchTeam();
-  }, [teamId]);
-
   if (!game) {
     return (
       <View className="flex-1 bg-background dark:bg-background-dark">
-        <Header />
+        <Header showTeamBar={false} />
         <View className="flex-1 justify-center items-center px-6">
           <Text className="text-xl font-bold text-red-500 mb-4">Gra nie została znaleziona</Text>
           <TouchableOpacity
@@ -125,37 +96,12 @@ export default function GameScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: undefined, position: 'relative' }} className="bg-background dark:bg-background-dark">
-      <Header />
-      
-      {/* Pasek z nazwą drużyny */}
-      {team && (
-        <View
-          style={{
-            position: 'absolute',
-            top: HEADER_HEIGHT - 10,
-            left: 0,
-            right: 0,
-            height: TEAMBAR_HEIGHT,
-            backgroundColor: team.color,
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: -1,
-            paddingTop: 10,
-            elevation: 4,
-            shadowColor: '#000',
-            shadowOpacity: 0.08,
-            shadowRadius: 6,
-            shadowOffset: { width: 0, height: 2 },
-          }}
-        >
-          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20, letterSpacing: 1, textTransform: 'uppercase' }}>{team.name || 'Nazwa drużyny'}</Text>
-        </View>
-      )}
+      <Header showTeamBar={true} />
 
       <ScrollView
         className="flex-1 px-6 py-4"
         contentContainerStyle={{
-          paddingTop: HEADER_HEIGHT + TEAMBAR_HEIGHT - 70,
+          paddingTop: headerHeights.TOTAL_HEIGHT - 70,
           paddingBottom: FOOTER_HEIGHT,
         }}
       >

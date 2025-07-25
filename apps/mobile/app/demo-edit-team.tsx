@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'expo-router/build/hooks';
+import { useRouter } from 'expo-router';
 import { View, Text, TextInput, TouchableOpacity, Animated, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Header } from '../components/Header';
