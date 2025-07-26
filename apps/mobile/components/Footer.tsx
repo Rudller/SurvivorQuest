@@ -15,12 +15,13 @@ export function Footer({
   completedTasks = 0, 
   totalTasks = 0 
 }: FooterProps) {
-  const insets = useSafeAreaInsets();
+  // Zostawiamy pobranie insets, ale oznaczamy jako nieużywane
+  const _insets = useSafeAreaInsets();
   
   return (
     <View 
       className="w-full bg-primary dark:bg-primary-dark px-6 py-4 flex-row justify-between items-center"
-      style={{ paddingBottom: 16 + insets.bottom }} // 16px padding + safe area
+      style={{ paddingBottom: 16 }} // Stały padding, bez uwzględnienia safe area
     >
       {/* Score */}
       <View className="flex-1 items-center">

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -29,6 +29,7 @@ export default function Map({
   // Stan dla mapy
   const [mapRef, setMapRef] = useState<any>(null);
   const [followUser, setFollowUser] = useState(false);
+  const [mapReady, setMapReady] = useState(false);
 
   // Funkcja do centrowania mapy na pozycji użytkownika
   const centerOnUserLocation = () => {
@@ -51,21 +52,28 @@ export default function Map({
     }
   };
 
+  // Efekt zbliżający mapę na lokalizację użytkownika, gdy mapa zostanie załadowana
+  useEffect(() => {
+    if (mapRef && location && mapReady) {
+      // Używamy setTimeout aby dać mapie czas na pełne załadowanie
+      setTimeout(() => {
+        centerOnUserLocation();
+      }, 500);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapRef, location, mapReady]);
+
   // Funkcja do przełączania śledzenia użytkownika
   const toggleFollowUser = () => {
-    setFollowUser(!followUser);
-    if (!followUser && location && mapRef) {
+    const newFollowState = !followUser;
+    setFollowUser(newFollowState);
+    if (newFollowState && location) {
       // Jeśli włączamy śledzenie, wycentruj od razu
-      mapRef.animateToRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.005,
-        longitudeDelta: 0.005,
-      }, 1000);
+      centerOnUserLocation();
     }
     Alert.alert(
       'Śledzenie', 
-      followUser ? 'Wyłączono śledzenie pozycji' : 'Włączono śledzenie pozycji'
+      newFollowState ? 'Włączono śledzenie pozycji' : 'Wyłączono śledzenie pozycji'
     );
   };
 
@@ -90,6 +98,7 @@ export default function Map({
         loadingEnabled={true}
         loadingIndicatorColor="#22c55e"
         loadingBackgroundColor="#1f2937"
+        onMapReady={() => setMapReady(true)}
       >
         {/* Marker użytkownika */}
         {location && locationPermission && (

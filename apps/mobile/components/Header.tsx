@@ -12,13 +12,15 @@ interface HeaderProps {
   demo?: any;
   totalGames?: number;
   completedGames?: number;
+  onMenuPress?: () => void;
 }
 
 // Helper function to calculate header heights
 export const getHeaderHeights = (insets: { top: number }, hasTeam: boolean, showTeamBar: boolean) => {
-  const HEADER_HEIGHT = 64;
+  const HEADER_HEIGHT = 80; // Zwiększona wysokość headera z 64 na 80
   const TEAMBAR_HEIGHT = hasTeam && showTeamBar ? 48 : 0;
-  const TOTAL_HEIGHT = HEADER_HEIGHT + insets.top + TEAMBAR_HEIGHT;
+  // Ignorujemy insets.top w obliczeniach
+  const TOTAL_HEIGHT = HEADER_HEIGHT + TEAMBAR_HEIGHT;
   
   return {
     HEADER_HEIGHT,
@@ -27,8 +29,9 @@ export const getHeaderHeights = (insets: { top: number }, hasTeam: boolean, show
   };
 };
 
-export function Header({ showTeamBar = false, demo, totalGames = 0, completedGames = 0 }: HeaderProps) {
-  const insets = useSafeAreaInsets?.() || { top: 0 };
+export function Header({ showTeamBar = false, demo, totalGames = 0, completedGames = 0, onMenuPress }: HeaderProps) {
+  // Zostawiamy pobranie insets, ale oznaczamy jako nieużywane
+  const _insets = useSafeAreaInsets?.() || { top: 0 };
   const { teamId } = useTeam();
   const [menuOpen, setMenuOpen] = useState(false);
   const [team, setTeam] = useState<{ id: string; name: string; color: string } | null>(null);
@@ -59,7 +62,7 @@ export function Header({ showTeamBar = false, demo, totalGames = 0, completedGam
     fetchTeam();
   }, [teamId, showTeamBar]);
 
-  const HEADER_HEIGHT = 64;
+  const HEADER_HEIGHT = 80; // Zwiększona wysokość headera z 64 na 80
   const TEAMBAR_HEIGHT = team && showTeamBar ? 48 : 0;
 
   return (
@@ -69,7 +72,7 @@ export function Header({ showTeamBar = false, demo, totalGames = 0, completedGam
         <View
           style={{
             position: 'absolute',
-            top: HEADER_HEIGHT + insets.top - 10, // Przesunięcie w górę żeby był przykryty przez header
+            top: HEADER_HEIGHT - 10, // Przesunięcie w górę żeby był przykryty przez header (bez uwzględniania insets)
             left: 0,
             right: 0,
             height: TEAMBAR_HEIGHT,
@@ -99,20 +102,23 @@ export function Header({ showTeamBar = false, demo, totalGames = 0, completedGam
         </View>
       )}
 
-      {/* Główny header - na wierzchu */}
+      {/* Główny header - na wierzchu - wyśrodkowany */}
       <View
         className="w-full flex-row items-center px-4 py-2 bg-primary dark:bg-primary-dark shadow-md rounded-b-2xl relative"
         style={{ 
-          paddingTop: insets.top, 
-          height: HEADER_HEIGHT + insets.top,
+          paddingTop: 0, // Nie używamy insets.top
+          height: HEADER_HEIGHT, // Nie używamy insets.top
           zIndex: 10, // Wyższy z-index żeby był na wierzchu
-          elevation: 6 // Wyższa niż team bar
+          elevation: 6, // Wyższa niż team bar
+          justifyContent: 'space-between', // Równomierne rozłożenie elementów
+          alignItems: 'center' // Wyśrodkowanie w pionie
         }}
       >
-        {/* Burger menu button */}
+        {/* Burger menu button - lewa strona */}
         <Pressable
-          className="w-10 h-10 items-center justify-center rounded-lg bg-transparent"
-          onPress={() => setMenuOpen(true)}
+          className="w-12 h-12 items-center justify-center rounded-lg bg-transparent"
+          style={{ marginLeft: 8 }}
+          onPress={() => onMenuPress ? onMenuPress() : setMenuOpen(true)}
         >
           <Text className="sr-only">Menu</Text>
           <View className="flex-col justify-center items-center w-full h-full">
@@ -122,8 +128,14 @@ export function Header({ showTeamBar = false, demo, totalGames = 0, completedGam
             <View className="w-6 h-0.5 bg-black dark:bg-white" />
           </View>
         </Pressable>
-        {/* Logo na środku */}
-        <View style={{ position: 'absolute', left: '50%', top: '50%', transform: [{ translateX: -24 }, { translateY: -24 }], zIndex: 15 }}>
+        {/* Logo na środku - lepiej wyśrodkowane */}
+        <View style={{ 
+          position: 'absolute', 
+          left: '50%', 
+          top: '50%', 
+          transform: [{ translateX: -35 }, { translateY: -35 }], // Dostosowane do połowy rozmiaru logo (70/2)
+          zIndex: 15 
+        }}>
           <Image
             source={Logo}
             style={{ width: 70, height: 70 }}
@@ -134,18 +146,20 @@ export function Header({ showTeamBar = false, demo, totalGames = 0, completedGam
         {/* Placeholder na user info */}
         <View className="flex-1" />
         {/* Informacja o trybie demo po prawej stronie */}
-        <View className="w-32 h-10 items-end justify-center">
-          <Text className="px-3 py-1 rounded-xl bg-accent dark:bg-accent-dark text-white dark:text-black font-bold text-xs shadow text-right">
+        <View className="w-32 h-12 items-end justify-center" style={{ marginRight: 8 }}>
+          <Text className="px-3 py-1 rounded-xl bg-accent dark:bg-accent-dark text-white dark:text-black font-bold text-xs shadow text-center">
             {teamId ? `DEMO-${teamId}` : 'DEMO'}
           </Text>
         </View>
-        <BurgerMenu 
-          visible={menuOpen} 
-          onClose={() => setMenuOpen(false)} 
-          demo={demo}
-          totalGames={totalGames}
-          completedGames={completedGames}
-        />
+        {!onMenuPress && (
+          <BurgerMenu 
+            visible={menuOpen} 
+            onClose={() => setMenuOpen(false)} 
+            demo={demo}
+            totalGames={totalGames}
+            completedGames={completedGames}
+          />
+        )}
       </View>
     </View>
   );

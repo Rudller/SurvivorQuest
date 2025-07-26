@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, TouchableOpacity, Alert, Platform, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,6 +9,8 @@ import { router } from 'expo-router';
 import { Header, getHeaderHeights } from '../components/Header';
 import { Footer } from '../components/Footer';
 import Map from '../components/Map';
+import { BurgerMenu } from '../components/BurgerMenu';
+import { CountdownScreen } from '../components/CountdownScreen';
 import { useTeam } from './team-context';
 import demoRealization from '../assets/demo-realization.json';
 
@@ -20,17 +22,21 @@ export default function DemoScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [locationPermission, setLocationPermission] = useState<boolean>(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState<boolean>(true);
+  const [showBurgerMenu, setShowBurgerMenu] = useState(false);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [realizationActive, setRealizationActive] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState("42:17");
   const insets = useSafeAreaInsets();
 
   // Wysokość headera (dostosuj jeśli inna!)
   const headerHeights = getHeaderHeights(insets, !!team, true);
-  const FOOTER_HEIGHT = 80 + insets.bottom; // Dodaj wysokość dolnego safe area
+  // Stała wysokość footera bez uwzględniania insets
+  const FOOTER_HEIGHT = 80;
 
   // Oblicz statystyki z demo realizacji
   const totalGames = demo.games?.length || 0;
   const completedGames = demo.games?.filter((game: any) => game.status === 'completed').length || 0;
   const score = completedGames * 100; // Przykładowy system punktacji
-  const timeRemaining = "42:17"; // Przykładowy czas - można później zrobić countdown
 
   // Funkcja do otwarcia kamery
   const openCamera = async () => {
@@ -120,6 +126,59 @@ export default function DemoScreen() {
     fetchTeam();
   }, [teamId]);
 
+  // Function to toggle burger menu
+  const toggleBurgerMenu = () => {
+    setShowBurgerMenu(prev => !prev);
+  };
+
+  // Function to start countdown
+  const handleStartCountdown = () => {
+    setShowCountdown(true);
+  };
+
+  // Function to start realization
+  const handleStartRealization = () => {
+    setShowCountdown(false);
+    setRealizationActive(true);
+    Alert.alert('Realizacja rozpoczęta', 'Realizacja SurvivorQuest została rozpoczęta!');
+  };
+
+  // Function to handle countdown completion
+  const handleCountdownComplete = () => {
+    setShowCountdown(false);
+    setRealizationActive(true);
+  };
+
+  // Effect to handle realization time tracking
+  useEffect(() => {
+    if (!realizationActive) return;
+
+    const calculateTimeRemaining = () => {
+      const now = new Date();
+      const endTime = new Date(demo.realizationEndTime);
+      const difference = endTime.getTime() - now.getTime();
+      
+      if (difference <= 0) {
+        setTimeRemaining("00:00");
+        Alert.alert("Koniec realizacji!", "Czas realizacji dobiegł końca.");
+        return;
+      }
+      
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      
+      setTimeRemaining(
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+      );
+    };
+    
+    calculateTimeRemaining();
+    const interval = setInterval(calculateTimeRemaining, 1000);
+    
+    return () => clearInterval(interval);
+  }, [realizationActive, demo.realizationEndTime]);
+
   // useEffect do żądania uprawnień do lokalizacji przy starcie
   useEffect(() => {
     requestLocationPermission();
@@ -146,13 +205,20 @@ export default function DemoScreen() {
           zIndex: 10, // Dodajemy niższy zIndex, aby mapa była pod headerem i footerem
         }}
       />
+      
+      {/* Countdown Screen */}
+      <CountdownScreen 
+        startTime={demo.realizationStartTime} 
+        visible={showCountdown}
+        onComplete={handleCountdownComplete}
+      />
 
-      {/* Header z oliwkowym tłem i marginesami */}
+      {/* Header z oliwkowym tłem i marginesami - przesunięty niżej */}
       <View style={{ 
         zIndex: 20, 
         position: 'absolute',
-        margin: 10, // Przywracamy margines 10px dookoła headera
-        marginTop: 10 + insets.top, // Dodatkowy margines na górze uwzględniający safe area
+        margin: 10, // Margines 10px dookoła headera
+        marginTop: 40, // Zwiększony margines górny - header niżej
         left: 0,
         right: 0,
         backgroundColor: '#697a47', // Oliwkowy/zielonkawy kolor tła jak na screenie
@@ -169,6 +235,7 @@ export default function DemoScreen() {
           demo={demo}
           totalGames={totalGames}
           completedGames={completedGames}
+          onMenuPress={toggleBurgerMenu}
         />
       </View>
       
@@ -207,7 +274,7 @@ export default function DemoScreen() {
       {/* Przycisk kamery nad footerem */}
       <View style={{ 
         position: 'absolute', 
-        bottom: 110 + insets.bottom, // nad footerem z uwzględnieniem nowego marginesu
+        bottom: 140, // Dostosowana pozycja względem przesuniętego footera
         left: '80%', 
         transform: [{ translateX: -40 }], 
         zIndex: 40 // większy zIndex niż header i footer
@@ -236,12 +303,12 @@ export default function DemoScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Footer dockowany na dole, unoszący się nad mapą */}
+      {/* Footer dockowany na dole, unoszący się nad mapą - przesunięty wyżej */}
       <View style={{ 
         position: 'absolute', 
         left: 10, 
         right: 10, 
-        bottom: 10 + insets.bottom, // Margines od dołu uwzględniający safe area
+        bottom: 40, // Zwiększony margines od dołu - footer wyżej
         zIndex: 30,
         borderRadius: 15, // Zaokrąglenie rogów
         overflow: 'hidden', // Zapewnia że zaokrąglenie będzie widoczne
@@ -260,6 +327,17 @@ export default function DemoScreen() {
           totalTasks={totalGames}
         />
       </View>
+      
+      {/* Burger Menu */}
+      <BurgerMenu 
+        visible={showBurgerMenu} 
+        onClose={() => setShowBurgerMenu(false)}
+        demo={demo}
+        totalGames={totalGames}
+        completedGames={completedGames}
+        onStartCountdown={handleStartCountdown}
+        onStartRealization={handleStartRealization}
+      />
     </View>
   );
 }

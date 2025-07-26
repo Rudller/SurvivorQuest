@@ -10,9 +10,11 @@ interface BurgerMenuProps {
   demo?: any;
   totalGames?: number;
   completedGames?: number;
+  onStartCountdown?: () => void;
+  onStartRealization?: () => void;
 }
 
-export function BurgerMenu({ visible, onClose, demo, totalGames = 0, completedGames = 0 }: BurgerMenuProps) {
+export function BurgerMenu({ visible, onClose, demo, totalGames = 0, completedGames = 0, onStartCountdown, onStartRealization }: BurgerMenuProps) {
   const router = useRouter();
   const handleRestart = () => {
     try {
@@ -99,7 +101,31 @@ export function BurgerMenu({ visible, onClose, demo, totalGames = 0, completedGa
           )}
         </ScrollView>
         
-        <View className="mt-4 pt-4 border-t border-primary/20 dark:border-primary-dark/20">
+        <View className="mt-4 pt-4 border-t border-primary/20 dark:border-primary-dark/20 space-y-3">
+          {onStartCountdown && (
+            <Pressable 
+              onPress={() => {
+                onStartCountdown();
+                onClose();
+              }} 
+              className="py-3 px-4 rounded-xl bg-primary dark:bg-primary-dark items-center"
+            >
+              <Text className="text-white dark:text-black font-bold text-base">Pokaż odliczanie</Text>
+            </Pressable>
+          )}
+          
+          {onStartRealization && (
+            <Pressable 
+              onPress={() => {
+                onStartRealization();
+                onClose();
+              }} 
+              className="py-3 px-4 rounded-xl bg-highlight dark:bg-highlight-dark items-center"
+            >
+              <Text className="text-white dark:text-black font-bold text-base">Rozpocznij realizację</Text>
+            </Pressable>
+          )}
+          
           <Pressable onPress={handleRestart} className="py-3 px-4 rounded-xl bg-accent dark:bg-accent-dark items-center">
             <Text className="text-white dark:text-black font-bold text-base">Restart Demo</Text>
           </Pressable>
